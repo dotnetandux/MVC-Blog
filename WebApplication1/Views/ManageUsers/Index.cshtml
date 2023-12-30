@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main">
+    <section>
+        <h1>System Users</h1>
+        <ul class="actions">
+            <li><a class="button" asp-action="Create">Add User</a></li>
+        </ul>
+    </section>
+    <section>
+        <div class="box">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.Role</td>
+                                <td></td>
+                                <td>
+                                    <ul class="actions small">
+                                        @if (User.Identity.Name.Equals(user.UserName))
+                                        {
+                                            <li><a onclick="noEdit()" class="button primary">Edit</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-action="Edit" asp-route-id="@user.Id" class="button">Edit</a></li>
+                                        }
+                                        <li><a asp-action="Delete" asp-route-id="@user.Id" class="button">Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    function noEdit()
+    {
+        window.alert("Cannot edit currently logged in user");
+    }
+</script>

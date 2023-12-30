@@ -1,0 +1,57 @@
+﻿@model Tuple<List<Post>, List<Comment>>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/main.css"/>
+<httpCookies httpOnlyCookies="true" requireSSL="true" />
+<div id="main">
+    <section>
+        <form asp-controller="Home" asp-action="Index">
+            <div class="row gtr-uniform">
+                <div class="col-6 col-10-large">
+                    <input type="text" name="searchQuery"placeholder="Post title.." />
+                </div>
+                <div class="col-1 col-2-xxsmall">
+                    <ul class="actions">
+                        <input type="submit" value="Search" />
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    @foreach (var post in Model.Item1)
+    {
+        <div class="box">
+            <article class="post featured">
+                <header class="major">
+                    <span class="date">@post.Posted</span>
+                    <h2>@post.Title</h2>
+                    <p>@post.Content</p>
+                </header>
+            </article>
+            <div class="box">
+                @foreach (var comment in Model.Item2)
+                {
+                    @if (comment.PostId == post.Id)
+                    {
+                        <header>
+                            <span class="date">@comment.MemberID</span>
+                        </header>
+                        <p>@comment.Content</p>
+                    }
+                }
+                <section>
+                    <div class="fields">
+                        <ul class="actions">
+                            <button type="button"><a asp-controller="Comments" asp-action="Create" asp-route-id="@post.Id">Add Comment</a></button>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    }
+</div>

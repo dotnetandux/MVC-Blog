@@ -1,0 +1,45 @@
+﻿@model WebApplication1.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main">
+    <section class="post">
+        <header class="major">
+            <h1>Edit User</h1>
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="fields">
+                    <div class="field">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                    <div class="field">
+                        <label asp-for="Role" class="control-label"></label>
+                        <input asp-for="Role" oninput="warning(this.value)" class="form-control" />
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                        <p id="warningtxt" style="color: red; display: none">Role must be 'Admin' or 'User'</p>
+                        <script>
+                            function warning(val) {
+                                if (val == "Admin" || val == "User" || val == "") {
+                                    document.getElementById("warningtxt").style.display = "none";
+                                }
+                                else {
+                                    document.getElementById("warningtxt").style.display = "block";
+                                }
+                            }
+                        </script>
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </form>
+        </header>
+    </section>
+</div>
+
