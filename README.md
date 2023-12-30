@@ -36,9 +36,7 @@ The website implements basic functionalities of a blogging platform:
 
 2. Open the project in Visual Studio.
 
-3. Set up the database (instructions in `docs/database_setup.md` or similar).
-
-4. Build and run the application using Visual Studio.
+3. Build and run the application using Visual Studio.
 
 ## Usage
 
